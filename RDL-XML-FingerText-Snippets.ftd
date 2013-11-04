@@ -1,0 +1,10 @@
+sbop
+GLOBAL
+<property name="read_opcode" value="0x$[![0]!]"/>
+<property name="write_opcode" value="0x$[![1]!]"/>$[![]!][>END<]!$[FingerTextData FingerTextData]@#
+barref
+GLOBAL
+<property name="referenceBaseAddress" value="0/$[![19]!]/$[![0]!]"/>
+<property name="referenceOffset" value="0x$[![10]!]"/>
+<property name="referenceSpace" value="CFG"/>
+<property name="referenceSize" value="32"/>$[![]!][>END<]!$[FingerTextData FingerTextData]@#
