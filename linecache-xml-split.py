@@ -72,26 +72,32 @@ import os
 import os.path as path
 import sys #for main only
 
-fileToPrettyName = {
-'dunit_top.xml':        'DDR',
-'gbe.xml':              'GBE',
-'gpscore.xml':          'GPIO',
-'gpssus.xml':           'GPIOS',
-'hda_regs.xml':         'HDA',
-'lowpwrss_reg.xml':     'LPSS',
-'pcu_b0_d31_f0.xml':    'PCU-ILB',
-'pcu_b0_d31_f3.xml':    'PCU',
-'sata_d31f2_reg.xml':   'SATA',
-'ssa.xml':              'SSA',
-'usb_host.xml':         'USB',
-'vlv_pcie_top.xml':     'PCIe',
-}
+fileToPrettyName = {} #dictionary with key: filename, value: pretty-folder-name
 
 
-
-#this is a shared global dictionary. Its structure is shown below.
+#this is a shared global dictionary. Its structure is shown below and created via 'mapFile'
 addressMaps = {}
 
+#Example:
+# addressMaps = {
+#           1: 
+#           {
+#               'start-line': 23, 
+#               'name': 'addrmap1',
+#               'end-line': 100
+#           },
+#           2: 
+#           { 
+#               'start-line': 101, 
+#               'name': 'addrmap2',
+#               'end-line': 136
+#           },
+#
+#           ...
+#
+#           'last-sequence': 27,
+#           'total-lines': 65414
+#       }
 
 def splitAddressMapsFromDirectoryOfFiles(directory):
     """docstring for splitAddressMapsFromDirectoryOfFiles"""
@@ -107,7 +113,7 @@ def splitAddressMapsFromDirectoryOfFiles(directory):
 
 
 #outputfolder should already exist
-#Example call: splitAddressMapsFromFile('1vlv_pcu_b0_d31_f3_top.xml', './PCU')
+#Example call: splitAddressMapsFromFile('pcu_b0_d31_f3_top.xml', './PCU')
 def splitAddressMapsFromFile(filename, outputfolder, listofaddrmaps=[]):
     linecache.clearcache()
     if mapFile(filename):
@@ -181,7 +187,6 @@ def findEndOfChildAddrmap(filename, currentLineNumber=1):
     pass
 
 
-#mapFile('1vlv_pcu_b0_d31_f3_top.xml')
 def findChildAddrmap(filename, currentLineNumber=1):
     currentLineNumber = findNextLineOfAddrmapInFile(filename, currentLineNumber)
     if lineIsAddressMapStart(linecache.getline(filename, currentLineNumber)):
@@ -197,25 +202,6 @@ def findNextLineOfAddrmapInFile(filename, currentLineNumber=1):
             return currentLineNumber
         currentLineNumber += 1
     return False
-
-
-# addressMaps = {
-#			1: 
-#			{
-#				'start-line': 23, 
-#               'name': 'addrmap1',
-#				'end-line': 100
-#			},
-#			2: 
-#			{ 
-#				'start-line': 101, 
-#               'name': 'addrmap2',
-#				'end-line': 136
-#           },
-#           ...
-#           'last-sequence': 27,
-#           'total-lines': 65414
-#       }
 
 
 def isXMLFile(filename):
@@ -287,11 +273,7 @@ def copyLinesToFile(srcfile, destfile, startline, endline, mode="a"):
     pass
 
 
-
-
-
-
-
+#Linegroups example:
 # linegroups = {
 #       1: {
 #           'start-line': 23, 
