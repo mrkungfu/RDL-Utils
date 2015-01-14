@@ -1,9 +1,9 @@
 RDL-Utils
 =========
 
-This repository contains a set of useful Python scripts for working on RDL XML. The primary script is used to split individual address maps from RDL base (not Word) xml files.
+This repository contains a set of useful Python scripts for working on RDL XML. The primary tool, **rdl-xml-splitter**, is used to split individual address maps from RDL base (not Word) xml files:
 
-* **rdl-xml-splitter**: generates an xml file per address map of input rdl xml
+* **rdl-xml-splitter**: generates a flattened xml file per address map contained in xml (not Word or CRIF) based RDL files
 
 A set of helper tools are also provided:
 
